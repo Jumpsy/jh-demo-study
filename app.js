@@ -34,7 +34,7 @@ const topicPill = (t) => `<span class="pill t-${t}">${TOPICS[t]}</span>`;
 function polsterBox(i) { const p = typeof i === "number" ? POLSTER[i] : pick(POLSTER); return `<div class="polster"><div class="polster-ava">P</div><div><div class="who">Dr. Polster in class</div><q>${esc(p.text)}</q><div class="about">${esc(p.about)}</div></div></div>`; }
 
 // ---------- router ----------
-const routes = { home, learn, cards, quiz, test, demo, predict, ask };
+const routes = { home, learn, notes, cards, quiz, test, demo, predict, ask };
 let cleanup = null;
 function route() {
   if (cleanup) { cleanup(); cleanup = null; }
@@ -159,6 +159,66 @@ function learn() {
   ${POLSTER.map((_, i) => polsterBox(i)).join("")}
   <div class="row" style="justify-content:center;margin-top:24px"><a class="btn primary" href="#cards">Next: flashcards</a></div>`;
   $$(".toc a").forEach((a) => a.onclick = (e) => { e.preventDefault(); $("#" + a.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+}
+
+
+// ---------- NOTES (plain, copyable) ----------
+function notesText() {
+  const L = [];
+  const by = (w) => QUOTES.filter((q) => q.who === w).map((q) => `  - "${q.text}"${q.star ? " (KEY)" : ""}`).join("\n");
+  L.push("JEWISH HISTORY 11 DEMO NOTES: CONVERSION AND REFORM");
+  L.push("Source: JH11-21 source book + Dr. Polster's classes.\n");
+  L.push("DEMO FORMAT");
+  L.push("- Friday Oct 2. Worth 2.5%. On paper. 10 min (12.5 extra time).");
+  L.push("- Part A: 5 fill-in-the-blanks. A quote is given, write WHO it is associated with. Word bank of 7-8, each word used once.");
+  L.push("- Part B: 3 short answers, do only 2 (cross one out). About 2 sentences each.");
+  L.push("- No dates needed, but know the evolution from Pittsburgh (1885) to Columbus (1937).");
+  L.push("- Not on demo: Wissenschaft des Judentums (science of Judaism) or anything earlier.\n");
+  L.push("1. CONVERSION");
+  L.push("- After emancipation, conversion was a CHOICE (not forced like the Crusades or Inquisition).");
+  L.push("- It was social/political, not religious. At least 250,000 Jews converted. Disraeli became British PM.\n");
+  L.push("HEINRICH HEINE (p. 13): German Jewish poet. Baptized Lutheran in 1825 to get a doctorate and a government/university job. It didn't work; moved to Paris. Kept his Jewishness privately.");
+  L.push(by("heine") + "\n");
+  L.push("ABRAHAM MENDELSSOHN (pp. 11-12): son of Moses Mendelssohn (father of the Haskalah). Letter to daughter Fanny on why he raised her Christian: Judaism 'had its day', Christianity is the creed of the most civilized people.");
+  L.push(by("mendelssohn") + "\n");
+  L.push("HEINE vs MENDELSSOHN: Heine = get ahead, avoid discrimination, baptism is a ticket. Mendelssohn = Christianity is today's religion of civilized people. Both social/political, not religious.\n");
+  L.push("2. REFORM: BEGINNINGS (pp. 14-15)");
+  L.push("- Goal of early Reform: NOT to destroy Judaism. Make it understandable and attractive so Jews stop converting out.");
+  L.push("ISRAEL JACOBSON'S TEMPLE (Seesen, 1810): not a rabbi. Christians attended, orchestra, choir, organ, hymns in German and Hebrew. Goal: religious education.");
+  L.push(by("jacobson"));
+  L.push("HAMBURG TEMPLE (constitution 1817): founded by 66 laymen. German sermon, choir with organ, confirmation for boys AND girls. Worship was neglected because people no longer knew Hebrew.");
+  L.push(by("hamburg"));
+  L.push("WHY 'TEMPLE'? (1) Sounds less foreign / less Jewish than synagogue. (2) Name of the destroyed Jerusalem Temple: they gave up hope of returning to Zion. Hamburg = their Jerusalem. 'We're here to stay.'\n");
+  L.push("3. REFORM: MAIN ISSUES (pp. 17-18, 22-23)");
+  L.push("- Issues: prayer language (Hebrew vs vernacular), head covering, kashrut, Sabbath Saturday vs Sunday.");
+  L.push("- Frankfurt conference (1845): is Hebrew legally needed for prayer?");
+  L.push("ZECHARIAS FRANKEL: team Hebrew. Not legally required but CONSERVE it, it's sacred to the people, prevents a schism. Positive-historical Judaism. Founder of Conservative Judaism.");
+  L.push(by("frankel"));
+  L.push("ABRAHAM GEIGER: team German. German prayer strikes a deeper chord (you understand it). Judaism is a religion, NOT a nation. Refused to move Shabbat to Sunday or abolish circumcision.");
+  L.push(by("geiger"));
+  L.push("GEIGER'S PRAYER BOOK PREFACE, 3 main issues: (1) no Israel/Zion, (2) no Messiah, rebuilt Temple, ingathering of exiles, (3) universalism / openness to other religions.\n");
+  L.push("4. REFORM: EVOLUTION (pp. 24-28)");
+  L.push("PITTSBURGH PLATFORM (1885), Classical Reform. Called by Kaufmann Kohler, chaired by Isaac M. Wise, adopted by the CCAR.");
+  L.push(by("pittsburgh"));
+  L.push("COLUMBUS PLATFORM (1937), CCAR. Why it changed: Nazi Nuremberg Laws (1935), assimilation failed (even converts not accepted), Zionism succeeding.");
+  L.push(by("columbus"));
+  L.push("EVOLUTION SUMMARY: Pittsburgh = not a nation, no return to Palestine, only moral laws binding, drop diet/dress laws. Columbus = Jewish people again ('soul of which Israel is the body'), help build a Jewish homeland, Hebrew together with the vernacular, keep Sabbath/festivals/inspiring customs. Reform today is NOT anti-Israel.\n");
+  L.push("TIMELINE (order matters, dates don't): " + TIMELINE.map((e) => `${e.y} ${e.e}`).join(" -> ") + "\n");
+  L.push("DR. POLSTER'S LINES FROM CLASS");
+  POLSTER.forEach((p) => L.push(`- "${p.text}" (${p.about})`));
+  L.push("\nPRACTICE SHORT ANSWERS (with model answers)");
+  SHORT.forEach((s, i) => L.push(`${i + 1}. ${s.q}\n   Model: ${s.model}`));
+  return L.join("\n");
+}
+function notes() {
+  const txt = notesText();
+  app.innerHTML = `<div class="row no-print" style="max-width:820px;margin:0 auto 14px"><div><div class="eyebrow">Plain notes</div><h1 style="margin:0">All notes, one page</h1></div><span class="spacer"></span>
+    <button class="btn primary" id="cp">Copy all</button><button class="btn" id="cpgpt">Copy for ChatGPT</button></div>
+  <p class="muted no-print" style="max-width:820px;margin:0 auto 14px">Paste into ChatGPT, Gemini or Google Docs. "Copy for ChatGPT" adds a line asking it to quiz you.</p>
+  <div class="paper"><pre id="nt" style="white-space:pre-wrap;font-family:'Source Serif 4',Georgia,serif;font-size:1rem;line-height:1.65;margin:0">${esc(txt)}</pre></div>`;
+  const copy = (t) => (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Copied!"), () => { const r = document.createRange(); r.selectNodeContents($("#nt")); getSelection().removeAllRanges(); getSelection().addRange(r); toast("Selected. Press Cmd/Ctrl+C"); });
+  $("#cp").onclick = () => copy(txt);
+  $("#cpgpt").onclick = () => copy("Here are my notes for a Grade 11 Jewish History demo. Quiz me one question at a time, mostly 'who said this quote', and explain simply when I'm wrong. Only use these notes.\n\n" + txt);
 }
 
 // ---------- FLASHCARDS ----------
