@@ -65,7 +65,7 @@ function home() {
       <h1>Know who said it <em>in two seconds.</em></h1>
       <p class="lead">Conversion and Reform, from Heine to the Columbus Platform. Built from the source book and Dr. Polster's classes.</p>
       <div class="countdown" id="cd"></div>
-      <div class="row"><a class="btn primary" href="#demo">Take a mock demo</a><a class="btn" href="#quiz">Endless quiz</a></div>
+      <div class="row"><a class="btn primary" href="#demo">Take a mock demo</a><a class="btn" href="#quiz">Endless quiz</a><a class="btn" href="#notes">Copy notes for ChatGPT</a></div>
     </div>
     <figure class="hero-img"><img src="img/temple-illustration.jpg" alt="Engraving-style illustration of an early Reform temple with an organ and choir"><figcaption>An early Reform temple: German sermon, organ, choir. (AI illustration)</figcaption></figure>
   </section>
@@ -78,7 +78,7 @@ function home() {
   ${polsterBox(0)}
   <div class="section-head"><div><div class="eyebrow">Study path</div><h2>Do these in order</h2></div>${answered ? `<p>${answered} answered · ${acc}% right</p>` : ""}</div>
   <div class="grid g3">
-    ${[["learn", "Learn it", "Every person, quote and idea with pictures. 10 minutes."], ["cards", "Flashcards", "Quote on the front, who said it on the back."], ["quiz", "Endless quiz", "Never runs out. Focuses on what you get wrong."], ["test", "Practice test", "20 mixed questions, marked at the end."], ["demo", "Mock demo", "The real format, timed, on paper. New one every time."], ["predict", "Score prediction", "A realistic guess of your demo mark."]]
+    ${[["learn", "Learn it", "Every person, quote and idea with pictures. 10 minutes."], ["notes", "Copy the notes", "One plain page. Copy it into ChatGPT or Gemini."], ["cards", "Flashcards", "Quote on the front, who said it on the back."], ["quiz", "Endless quiz", "Never runs out. Focuses on what you get wrong."], ["test", "Practice test", "20 mixed questions, marked at the end."], ["demo", "Mock demo", "The real format, timed, on paper. New one every time."], ["predict", "Score prediction", "A realistic guess of your demo mark."]]
       .map(([h, t, p], i) => `<a class="card tile" href="#${h}"><span class="num">${i + 1}</span><h3>${t}</h3><p>${p}</p></a>`).join("")}
   </div>`;
   const cd = $("#cd"); const tick = () => { const ms = new Date(DEMO_DATE) - Date.now(); if (ms <= 0) { cd.innerHTML = `<div class="cd-box"><b>Today</b><span>good luck</span></div>`; return; } const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60; cd.innerHTML = [[d, "days"], [h, "hours"], [m, "min"]].map(([n, l]) => `<div class="cd-box"><b>${n}</b><span>${l}</span></div>`).join(""); };
