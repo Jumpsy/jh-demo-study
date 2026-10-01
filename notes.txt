@@ -1,47 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JH Demo Prep</title>
-<meta name="description" content="Study for the Grade 11 Jewish History demo: Conversion (Heine, Mendelssohn) and Reform (Jacobson to Columbus 1937). Endless quizzes, mock demos, score predictor and an AI helper.">
-<meta property="og:title" content="JH Demo Prep">
-<meta property="og:description" content="Endless quizzes, realistic mock demos and a score predictor for Friday's Jewish History demo.">
-<meta property="og:image" content="img/temple-illustration.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231d3557'/><text x='32' y='44' font-size='34' text-anchor='middle' fill='%23e9c46a' font-family='Georgia'>JH</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4">
-<script>document.documentElement.className+=" js"</script>
-<style>.js .seo-notes{display:none}</style>
-<link rel="alternate" type="text/plain" href="llms-full.txt" title="All demo notes (plain text)">
-<link rel="canonical" href="https://jumpsy.github.io/jh-demo-study/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Jewish History 11 Demo Notes: Conversion and Reform","description":"Complete notes for the Grade 11 Jewish History demo: Heine, Mendelssohn, Jacobson, Hamburg Temple, Frankel, Geiger, Pittsburgh Platform (1885), Columbus Platform (1937).","educationalLevel":"Grade 11","inLanguage":"en","url":"https://jumpsy.github.io/jh-demo-study/","about":[{"@type":"Thing","name":"Heinrich Heine"},{"@type":"Thing","name":"Abraham Mendelssohn"},{"@type":"Thing","name":"Israel Jacobson"},{"@type":"Thing","name":"Hamburg Temple"},{"@type":"Thing","name":"Zecharias Frankel"},{"@type":"Thing","name":"Abraham Geiger"},{"@type":"Thing","name":"Pittsburgh Platform"},{"@type":"Thing","name":"Columbus Platform"},{"@type":"Thing","name":"Reform Judaism"},{"@type":"Thing","name":"Jewish conversion after emancipation"}]}</script>
-</head>
-<body>
-<header class="topbar">
-  <a href="#home" class="brand" aria-label="Home"><span class="brand-mark">JH</span><span class="brand-text">Demo Prep</span></a>
-  <nav class="nav" id="nav">
-    <a href="#learn">Learn</a>
-    <a href="#notes">Notes</a>
-    <a href="#cards">Flashcards</a>
-    <a href="#quiz">Endless Quiz</a>
-    <a href="#test">Test</a>
-    <a href="#demo">Mock Demo</a>
-    <a href="#predict">Prediction</a>
-    <a href="#ask">Ask AI</a>
-  </nav>
-  <div class="top-tools">
-    <button class="icon-btn" id="themeBtn" title="Dark or light mode" aria-label="Toggle dark mode">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-    </button>
-    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
-  </div>
-</header>
-<main id="app" tabindex="-1"><!--SEO-START--><article class="seo-notes"><h1>Jewish History 11 Demo Notes</h1><p><a href="notes.html">Read all notes</a></p><pre style="white-space:pre-wrap">JEWISH HISTORY 11 DEMO NOTES: CONVERSION AND REFORM
+JEWISH HISTORY 11 DEMO NOTES: CONVERSION AND REFORM
 Source: JH11-21 source book + Dr. Polster's classes.
 
 DEMO FORMAT
@@ -129,7 +86,7 @@ COLUMBUS PLATFORM (1937), CCAR. Why it changed: Nazi Nuremberg Laws (1935), assi
   - "Not only a haven of refuge for the oppressed but also a center of Jewish culture and spiritual life."
 EVOLUTION SUMMARY: Pittsburgh = not a nation, no return to Palestine, only moral laws binding, drop diet/dress laws. Columbus = Jewish people again ('soul of which Israel is the body'), help build a Jewish homeland, Hebrew together with the vernacular, keep Sabbath/festivals/inspiring customs. Reform today is NOT anti-Israel.
 
-TIMELINE (order matters, dates don't): 1810 Israel Jacobson opens his little "Temple" in Seesen -&gt; 1817-18 Hamburg Temple constitution and dedication -&gt; 1822-25 Mendelssohn family and Heine convert -&gt; 1845 Frankfurt conference: Frankel vs. Geiger on Hebrew -&gt; 1845+ Geiger's new prayer book: national aspect recedes -&gt; 1885 Pittsburgh Platform: Classical Reform -&gt; 1935 Nazi Nuremberg Laws strip German Jews of citizenship -&gt; 1937 Columbus Platform: peoplehood, homeland, Hebrew return
+TIMELINE (order matters, dates don't): 1810 Israel Jacobson opens his little "Temple" in Seesen -> 1817-18 Hamburg Temple constitution and dedication -> 1822-25 Mendelssohn family and Heine convert -> 1845 Frankfurt conference: Frankel vs. Geiger on Hebrew -> 1845+ Geiger's new prayer book: national aspect recedes -> 1885 Pittsburgh Platform: Classical Reform -> 1935 Nazi Nuremberg Laws strip German Jews of citizenship -> 1937 Columbus Platform: peoplehood, homeland, Hebrew return
 
 DR. POLSTER'S LINES FROM CLASS
 - "It's not memorizing the quote. It's understanding who's associated with that particular quote." (How the demo works)
@@ -173,12 +130,4 @@ PRACTICE SHORT ANSWERS (with model answers)
 12. Compare the Pittsburgh and Columbus Platforms on Israel and on Hebrew.
    Model: Pittsburgh (1885) said Jews are not a nation and expect no return to Palestine, and it drops rituals. Columbus (1937) says Judaism is the soul of which Israel is the body, asks all Jews to help build a Jewish homeland, and brings back Hebrew together with the vernacular.
 13. Is it right to say Reform Judaism is against Israel? Explain using the evolution of Reform.
-   Model: No. Early Reform (Geiger, Pittsburgh 1885) removed Zion and said Jews are not a nation. But the Columbus Platform (1937) changed this and called on all Jews to help build a Jewish homeland, and Reform today supports Israel.</pre></article><!--SEO-END--></main>
-<footer class="foot">
-  Made for Dr. Polster's Grade 11 Jewish History class. Quotes from the JH11-21 source book. Portraits: Wikimedia Commons (public domain). Engravings are AI illustrations.
-</footer>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="data.js?v=4"></script>
-<script src="app.js?v=4"></script>
-</body>
-</html>
+   Model: No. Early Reform (Geiger, Pittsburgh 1885) removed Zion and said Jews are not a nation. But the Columbus Platform (1937) changed this and called on all Jews to help build a Jewish homeland, and Reform today supports Israel.
