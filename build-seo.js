@@ -4,7 +4,7 @@ const fs = require("fs");
 const src = fs.readFileSync("app.js", "utf8");
 const fn = src.split("// ---------- NOTES (plain, copyable) ----------")[1].split("function notes()")[0];
 const notesText = new Function(fs.readFileSync("data.js", "utf8") + fn + "; return notesText();");
-const txt = notesText();
+const txt = notesText() + "\n\n" + fs.readFileSync("sources.txt", "utf8");
 const URL = "https://jumpsy.github.io/jh-demo-study/";
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -12,7 +12,7 @@ fs.writeFileSync("notes.txt", txt + "\n");
 fs.writeFileSync("llms-full.txt", txt + "\n");
 fs.writeFileSync("llms.txt", `# JH Demo Prep: Jewish History 11 demo (Conversion and Reform)
 
-> Complete study notes for Dr. Polster's Grade 11 Jewish History demo on Friday, October 2, 2026: Conversion (Heinrich Heine, Abraham Mendelssohn) and Reform Judaism (Israel Jacobson's Temple, the Hamburg Temple, Frankel vs. Geiger at the Frankfurt conference, Geiger's prayer book, the Pittsburgh Platform 1885 and the Columbus Platform 1937). Includes every quote with who said it, the demo format, Dr. Polster's lines from class, and model short answers.
+> Complete study notes for Dr. Polster's Grade 11 Jewish History demo on Friday, October 2, 2026: Conversion (Heinrich Heine, Abraham Mendelssohn) and Reform Judaism (Israel Jacobson's Temple, the Hamburg Temple, Frankel vs. Geiger at the Frankfurt conference, Geiger's prayer book, the Pittsburgh Platform 1885 and the Columbus Platform 1937). Includes every quote with who said it, the demo format, Dr. Polster's lines from class, model short answers, and the full text of every source reading on the demo.
 
 ## Full notes
 - [All notes as plain text](${URL}llms-full.txt): everything in one file

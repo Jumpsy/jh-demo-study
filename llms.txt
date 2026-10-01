@@ -1,6 +1,6 @@
 # JH Demo Prep: Jewish History 11 demo (Conversion and Reform)
 
-> Complete study notes for Dr. Polster's Grade 11 Jewish History demo on Friday, October 2, 2026: Conversion (Heinrich Heine, Abraham Mendelssohn) and Reform Judaism (Israel Jacobson's Temple, the Hamburg Temple, Frankel vs. Geiger at the Frankfurt conference, Geiger's prayer book, the Pittsburgh Platform 1885 and the Columbus Platform 1937). Includes every quote with who said it, the demo format, Dr. Polster's lines from class, and model short answers.
+> Complete study notes for Dr. Polster's Grade 11 Jewish History demo on Friday, October 2, 2026: Conversion (Heinrich Heine, Abraham Mendelssohn) and Reform Judaism (Israel Jacobson's Temple, the Hamburg Temple, Frankel vs. Geiger at the Frankfurt conference, Geiger's prayer book, the Pittsburgh Platform 1885 and the Columbus Platform 1937). Includes every quote with who said it, the demo format, Dr. Polster's lines from class, model short answers, and the full text of every source reading on the demo.
 
 ## Full notes
 - [All notes as plain text](https://jumpsy.github.io/jh-demo-study/llms-full.txt): everything in one file

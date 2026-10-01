@@ -136,7 +136,7 @@ function learn() {
   <h2 id="issues" style="margin-top:40px">3. Reform: the main issues</h2>
   <p>To "be like them", Reform had to deal with: <b>prayer language</b>, head covering, kashrut, and Sabbath on Saturday vs. Sunday. The big debate was prayer language at the <b>Frankfurt conference (1845)</b>: is Hebrew legally needed for prayer?</p>
   <div class="vs">
-    <div class="side"><h3><span class="mini-ava">${ava("frankel")}</span>Frankel: team Hebrew</h3><ul class="keypoints"><li>Hebrew isn't legally required, <b>but conserve it</b>.</li><li>It's sacred to the whole people. Dropping it causes a <b>schism</b> (split).</li><li>Later founds the <b>Conservative</b> movement.</li></ul></div>
+    <div class="side"><h3><span class="mini-ava">${ava("frankel")}</span>Frankel: team Hebrew</h3><ul class="keypoints"><li>Hebrew <b>must prevail</b> in the service. <b>Conserve it</b>. (He walked out when the vote went against him.)</li><li>It's sacred to the whole people. Dropping it causes a <b>schism</b> (split).</li><li>Later founds the <b>Conservative</b> movement.</li></ul></div>
     <div class="mid">vs</div>
     <div class="side"><h3><span class="mini-ava">${ava("geiger")}</span>Geiger: team German</h3><ul class="keypoints"><li>A German prayer <b>strikes a deeper chord</b>, because you understand it.</li><li>A special language makes you a nation. <b>Judaism is a religion, not a nation.</b></li><li>Still refused to move Shabbat to Sunday.</li></ul></div>
   </div>
@@ -173,7 +173,8 @@ function notesText() {
   L.push("- Part A: 5 fill-in-the-blanks. A quote is given, write WHO it is associated with. Word bank of 7-8, each word used once.");
   L.push("- Part B: 3 short answers, do only 2 (cross one out). About 2 sentences each.");
   L.push("- No dates needed, but know the evolution from Pittsburgh (1885) to Columbus (1937).");
-  L.push("- Not on demo: Wissenschaft des Judentums (science of Judaism) or anything earlier.\n");
+  L.push("- Not on demo: Wissenschaft des Judentums (science of Judaism) or anything earlier.");
+  L.push("- Oct 1 (day before): Dr. Polster said today's material, the Pittsburgh and Columbus Platforms, WILL be on the demo. See the Oct 1 class notes below.\n");
   L.push("1. CONVERSION");
   L.push("- After emancipation, conversion was a CHOICE (not forced like the Crusades or Inquisition).");
   L.push("- It was social/political, not religious. At least 250,000 Jews converted. Disraeli became British PM.\n");
@@ -192,7 +193,7 @@ function notesText() {
   L.push("3. REFORM: MAIN ISSUES (pp. 17-18, 22-23)");
   L.push("- Issues: prayer language (Hebrew vs vernacular), head covering, kashrut, Sabbath Saturday vs Sunday.");
   L.push("- Frankfurt conference (1845): is Hebrew legally needed for prayer?");
-  L.push("ZECHARIAS FRANKEL: team Hebrew. Not legally required but CONSERVE it, it's sacred to the people, prevents a schism. Positive-historical Judaism. Founder of Conservative Judaism.");
+  L.push("ZECHARIAS FRANKEL: team Hebrew. Hebrew must prevail in the service: CONSERVE it, it's sacred to the whole people and keeps Jews together (like a bundle of arrows), dropping it causes a schism. He left the conference when it voted to cut Hebrew. Positive-historical Judaism. Founder of Conservative Judaism.");
   L.push(by("frankel"));
   L.push("ABRAHAM GEIGER: team German. German prayer strikes a deeper chord (you understand it). Judaism is a religion, NOT a nation. Refused to move Shabbat to Sunday or abolish circumcision.");
   L.push(by("geiger"));
@@ -204,6 +205,7 @@ function notesText() {
   L.push(by("columbus"));
   L.push("EVOLUTION SUMMARY: Pittsburgh = not a nation, no return to Palestine, only moral laws binding, drop diet/dress laws. Columbus = Jewish people again ('soul of which Israel is the body'), help build a Jewish homeland, Hebrew together with the vernacular, keep Sabbath/festivals/inspiring customs. Reform today is NOT anti-Israel.\n");
   L.push("TIMELINE (order matters, dates don't): " + TIMELINE.map((e) => `${e.y} ${e.e}`).join(" -> ") + "\n");
+  L.push(CLASS_OCT1 + "\n");
   L.push("DR. POLSTER'S LINES FROM CLASS");
   POLSTER.forEach((p) => L.push(`- "${p.text}" (${p.about})`));
   L.push("\nPRACTICE SHORT ANSWERS (with model answers)");
@@ -265,10 +267,11 @@ function genWho(topic) {
 }
 function genReverse(topic) {
   const q = weightedQuote(topic); recent = [q.id, ...recent].slice(0, 10);
-  const wrong = shuffle(QUOTES.filter((x) => x.who !== q.who)).slice(0, 3);
+  const partner = shuffle(QUOTES.filter((x) => x.who === PARTNER[q.who])).slice(0, 2);
+  const wrong = [...partner, ...shuffle(QUOTES.filter((x) => x.who !== q.who && x.who !== PARTNER[q.who])).slice(0, 3 - partner.length)];
   return { type: "mcq", topic: SPEAKERS[q.who].topic, key: "q:" + q.id, prompt: `Which quote is from <b>${SPEAKERS[q.who].full}</b>?`,
     opts: shuffle([q, ...wrong]).map((x) => ({ v: x.id, label: "“" + x.text + "”" })), answer: q.id,
-    explain: `${esc(q.clue)} The others: ${wrong.map((w) => SPEAKERS[w.who].name).join(", ")}.` };
+    explain: `${esc(q.clue)}<br>The others: ${wrong.map((w) => `“${esc(w.text.slice(0, 50))}...” = <b>${SPEAKERS[w.who].name}</b>`).join("; ")}.` };
 }
 function genFact(topic) {
   const pool = FACTS.map((f, i) => ({ ...f, i })).filter((f) => !topic || topic === "all" || f.t === topic);
@@ -279,7 +282,8 @@ function genFact(topic) {
 }
 function genTF(topic) {
   const pool = TF.map((x, i) => ({ ...x, i })).filter((x) => !topic || topic === "all" || x.t === topic);
-  const x = pick(pool), truth = Math.random() < .5;
+  const fresh = pool.filter((x) => !recent.includes("tf" + x.i)); const x = pick(fresh.length ? fresh : pool), truth = Math.random() < .5;
+  recent = ["tf" + x.i, ...recent].slice(0, 10);
   return { type: "mcq", topic: x.t, key: "tf:" + x.i + (truth ? "t" : "f"), prompt: "True or false?", quote: truth ? x.s : x.f, noMark: true,
     opts: [{ v: "T", label: "True" }, { v: "F", label: "False" }], answer: truth ? "T" : "F", explain: truth ? "True." : `False. The truth: <b>${esc(x.s)}</b>` };
 }
@@ -387,7 +391,8 @@ function quiz() {
 // ---------- PRACTICE TEST ----------
 function test() {
   const qs = []; const gens = [genWho, genWho, genWho, genWho, genWho, genWho, genWho, genWho, genReverse, genReverse, genFact, genFact, genFact, genFact, genFact, genFact, genTF, genTF, genTF, genTF];
-  shuffle(gens).forEach((g) => qs.push(g("all")));
+  recent = []; const seen = new Set();
+  shuffle(gens).forEach((g) => { let q, k = 0; do { q = g("all"); k++; } while ((seen.has(q.key) || seen.has(q.key.replace(/[tf]$/, ""))) && k < 30); seen.add(q.key); seen.add(q.key.replace(/[tf]$/, "")); qs.push(q); });
   const ans = new Array(qs.length).fill(null); let i = 0;
   const draw = () => {
     app.innerHTML = `<div class="eyebrow" style="text-align:center">Practice test</div><h1 style="text-align:center">20 questions</h1><p class="muted" style="text-align:center">No answers shown until you finish.</p>
@@ -413,10 +418,14 @@ function test() {
 }
 
 // ---------- MOCK DEMO ----------
-function buildDemo(seed) {
+function missRate(id) { const it = S.items["q:" + id]; return it ? 1 - it.c / it.n : .5; }
+function buildDemo(seed, focus) {
   const r = mulberry(seed);
-  const who = shuffle(Object.keys(SPEAKERS), r).slice(0, 5);
-  const blanks = who.map((w) => { const pool = QUOTES.filter((q) => q.who === w); const stars = pool.filter((q) => q.star); return pick(r() < .65 && stars.length ? stars : pool, r); });
+  const spkMiss = (w) => QUOTES.filter((q) => q.who === w).reduce((a, q) => a + missRate(q.id), 0);
+  const who = focus ? shuffle(Object.keys(SPEAKERS), r).sort((a, b) => spkMiss(b) - spkMiss(a) + (r() - .5)).slice(0, 5) : shuffle(Object.keys(SPEAKERS), r).slice(0, 5);
+  const blanks = who.map((w) => { const pool = QUOTES.filter((q) => q.who === w); const stars = pool.filter((q) => q.star);
+    if (focus) { const missed = pool.filter((q) => missRate(q.id) > .3); if (missed.length && r() < .7) return pick(missed, r); return pick(pool, r); }
+    return pick(r() < .65 && stars.length ? stars : pool, r); });
   const extra = shuffle(Object.keys(SPEAKERS).filter((k) => !who.includes(k)), r).slice(0, r() < .5 ? 2 : 3);
   const bank = shuffle([...who, ...extra], r);
   const tps = shuffle(Object.keys(TOPICS), r).slice(0, 3);
@@ -426,7 +435,7 @@ function buildDemo(seed) {
 function autoMark(sa, text) {
   const t = text.toLowerCase(); const words = t.split(/\s+/).filter(Boolean).length;
   if (words < 4) return { score: 0, hits: [] };
-  const hits = sa.pts.filter(([, re]) => new RegExp(re, "i").test(t));
+  const hits = sa.pts.filter(([, re]) => new RegExp("\\b(?:" + re + ")", "i").test(t));
   let score = round5(2.5 * Math.min(1, hits.length / Math.max(2, sa.pts.length - 0.5)));
   if (words < 12) score = Math.min(score, 1.5);
   return { score, hits: hits.map((h) => h[0]) };
@@ -439,10 +448,13 @@ function demo(arg) {
   ${polsterBox(12)}
   <div class="card"><h3>Your time</h3><div class="row"><button class="chip on" data-m="10">10 min (regular)</button><button class="chip" data-m="12.5">12.5 min (extra time)</button></div>
   <p class="small muted" style="margin-top:12px">We guess the marks are 1 per blank and 2.5 per short answer (10 total). Dr. Polster didn't give the exact split.</p>
-  <div class="row" style="margin-top:12px"><button class="btn primary" id="go">Start the demo</button><button class="btn" id="share">Send this exact demo to a friend</button></div></div></div>`;
+  <div class="row" style="margin-top:12px"><button class="btn primary" id="go">Start the demo</button><button class="btn" id="share">Send this exact demo to a friend</button></div>
+  <div class="row" style="margin-top:12px"><button class="btn gold" id="until">Until 100: keep making new demos until I get 10/10</button></div>
+  <p class="small muted">Until 100 gives you a fresh demo every time, with more of the quotes you got wrong, and only stops when you get a perfect score.</p></div></div>`;
   $$("[data-m]").forEach((b) => b.onclick = () => { mins = +b.dataset.m; $$("[data-m]").forEach((x) => x.classList.toggle("on", x === b)); });
   $("#share").onclick = () => { const u = location.href.split("#")[0] + "#demo/" + seed; navigator.clipboard?.writeText(u).then(() => toast("Link copied"), () => toast(u)); };
-  $("#go").onclick = () => runDemo(buildDemo(seed), mins);
+  $("#go").onclick = () => { sessionStorage.removeItem("jh_until"); runDemo(buildDemo(seed), mins); };
+  $("#until").onclick = () => { sessionStorage.setItem("jh_until", JSON.stringify({ n: 1, mins })); runDemo(buildDemo(seed, true), mins); };
 }
 function runDemo(D, mins) {
   const total = mins * 60; let left = total, crossed = null, over = false;
@@ -473,7 +485,7 @@ function runDemo(D, mins) {
     if (crossed == null) doIdx = (filled.length >= 2 ? filled : doIdx).slice(0, 2);
     const rec = { ts: Date.now(), seed: D.seed, blanks: b, sa: [0, 0], mins };
     const saScores = {};
-    const totalUpd = () => { rec.sa = doIdx.map((k) => saScores[k]); rec.total = b + rec.sa.reduce((x, y) => x + y, 0); $("#tot").textContent = `${rec.total} / 10`; const ix = S.demos.findIndex((d) => d.ts === rec.ts); if (ix >= 0) S.demos[ix] = { ...rec }; else S.demos.push({ ...rec }); save(); };
+    let totalUpd = () => { rec.sa = doIdx.map((k) => saScores[k]); rec.total = b + rec.sa.reduce((x, y) => x + y, 0); $("#tot").textContent = `${rec.total} / 10`; const ix = S.demos.findIndex((d) => d.ts === rec.ts); if (ix >= 0) S.demos[ix] = { ...rec }; else S.demos.push({ ...rec }); save(); };
     [0, 1, 2].forEach((k) => {
       const ta = $(`textarea[data-i="${k}"]`); ta.readOnly = true; const box = $("#sr" + k); const sa = D.sas[k];
       if (!doIdx.includes(k)) { $("#sa" + k).classList.add("crossed"); box.innerHTML = `<div class="result-box">Not marked (you did the other two).<br><b>Model answer:</b> ${esc(sa.model)}</div>`; return; }
@@ -493,7 +505,16 @@ function runDemo(D, mins) {
       paint();
     });
     totalUpd(); if (rec.total >= 9) confetti();
-    app.insertAdjacentHTML("beforeend", `<div class="card no-print" style="max-width:820px;margin:0 auto"><h3>Done!</h3><p>The prediction page now uses this result. Each mock demo is new, so do another.</p><div class="row"><a class="btn primary" href="#demo/${Math.floor(Math.random() * 1e6)}">New mock demo</a><a class="btn" href="#predict">See my prediction</a></div></div>`);
+    let U = null; try { U = JSON.parse(sessionStorage.getItem("jh_until")); } catch {}
+    const untilBox = () => {
+      if (!U) return `<div class="card no-print" style="max-width:820px;margin:0 auto"><h3>Done!</h3><p>The prediction page now uses this result. Each mock demo is new, so do another.</p><div class="row"><a class="btn primary" href="#demo/${Math.floor(Math.random() * 1e6)}">New mock demo</a><a class="btn" href="#predict">See my prediction</a></div></div>`;
+      if (rec.total >= 10) { sessionStorage.removeItem("jh_until"); confetti(); return `<div class="card no-print" id="ubox" style="max-width:820px;margin:0 auto"><h3>100%! You did it.</h3><p>Perfect score on demo ${U.n}. You're ready.</p><div class="row"><a class="btn" href="#predict">See my prediction</a></div></div>`; }
+      return `<div class="card no-print" id="ubox" style="max-width:820px;margin:0 auto"><h3>Until 100: ${rec.total}/10 on demo ${U.n}</h3><p>Not 100 yet. Read the ✗ answers and model answers, then try a new demo. It will ask more of what you missed. (If your short answers deserve full marks, use + to fix the mark first.)</p><div class="row"><button class="btn primary" id="unext">Next demo (#${U.n + 1})</button><button class="btn ghost" id="ustop">Stop</button></div></div>`;
+    };
+    app.insertAdjacentHTML("beforeend", untilBox());
+    const wire = () => { const nx = $("#unext"); if (nx) nx.onclick = () => { if (rec.total >= 10) { $("#ubox").outerHTML = untilBox(); return; } U.n++; sessionStorage.setItem("jh_until", JSON.stringify(U)); runDemo(buildDemo(Math.floor(Math.random() * 1e6), true), U.mins); }; const st = $("#ustop"); if (st) st.onclick = () => { sessionStorage.removeItem("jh_until"); $("#ubox").remove(); toast("Stopped"); }; };
+    wire();
+    if (U) { const old = totalUpd; totalUpd = () => { old(); if (rec.total >= 10 && $("#unext")) { $("#ubox").outerHTML = untilBox(); wire(); } }; }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   $("#hand").onclick = hand; $("#hand2").onclick = hand;
