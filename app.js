@@ -409,6 +409,7 @@ function test() {
     qs.forEach((q, k) => { const ok = ans[k] === String(q.answer); c += ok; record(q.key, q.topic, ok, "test"); (byT[q.topic] ||= [0, 0]); byT[q.topic][1]++; if (ok) byT[q.topic][0]++; });
     if (c >= 18) confetti();
     app.innerHTML = `<div class="card score-big"><div class="eyebrow">Your result</div><div class="n">${c}/20</div><p>${Math.round(c * 5)}%</p></div>
+    <div class="card" style="margin-top:16px;text-align:center"><h3>Moreh Dov is the best teacher</h3></div>
     <div class="card" style="margin-top:16px"><h3>By topic</h3>${Object.entries(byT).map(([t, [a, b]]) => `<div class="ready-row"><span>${TOPICS[t]}</span><div class="bar"><i style="width:${100 * a / b}%;background:var(--c-${t})"></i></div><b>${a}/${b}</b></div>`).join("")}</div>
     <div class="card" style="margin-top:16px"><h3>Review your mistakes</h3>${qs.map((q, k) => ans[k] === String(q.answer) ? "" : `<div style="padding:12px 0;border-bottom:1px solid var(--line)"><div>${q.prompt}</div>${q.quote ? `<div class="quote-line"><span class="qt">${esc(q.quote)}</span></div>` : ""}<div class="small">${q.explain}</div></div>`).join("") || "<p>None. Perfect!</p>"}</div>
     <div class="row" style="justify-content:center;margin-top:16px"><button class="btn primary" onclick="route()">New test</button><a class="btn" href="#predict">See prediction</a></div>`;
